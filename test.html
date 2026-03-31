@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reading Effect</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      height: 300vh;
+      margin: 0;
+      background: #111;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      position: fixed;
+      width: 60%;
+      text-align: center;
+      font-size: 2rem;
+      line-height: 1.6;
+    }
+
+    .word {
+      opacity: 0.1;
+      transition: opacity 0.5s ease;
+    }
+
+    .visible {
+      opacity: 1;
+    }
+
+    .faded {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="text"></div>
+
+<script>
+  const sentence = "This is a simple but powerful storytelling experience.";
+  const words = sentence.split(" ");
+  const container = document.getElementById("text");
+
+  words.forEach((word, index) => {
+    const span = document.createElement("span");
+    span.textContent = word + " ";
+    span.classList.add("word");
+    container.appendChild(span);
+  });
+
+  const spans = document.querySelectorAll(".word");
+
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+    const index = Math.floor(scrollY / 100);
+
+    spans.forEach((span, i) => {
+      if (i === index) {
+        span.classList.add("visible");
+        span.classList.remove("faded");
+      } else if (i < index) {
+        span.classList.add("faded");
+        span.classList.remove("visible");
+      } else {
+        span.classList.remove("visible", "faded");
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
